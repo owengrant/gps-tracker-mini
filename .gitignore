@@ -1,0 +1,5 @@
+.idea/
+.gradle/
+app/release
+build/
+geo-sms.iml

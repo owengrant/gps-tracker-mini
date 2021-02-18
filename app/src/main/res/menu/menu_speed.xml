@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.geoideas.gpstracker.activity.SpeedChartActivity">
+
+    <item
+            android:id="@+id/menu_speed_screenshot"
+            android:icon="@drawable/ic_screenshot"
+            android:orderInCategory="10"
+            android:title="Screenshot"
+            android:visible="false"
+            app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_speed_pie"
+        android:title="Pie Chart"
+        android:orderInCategory="20"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_speed_line"
+        android:title="Line Chart"
+        android:orderInCategory="30"
+        app:showAsAction="never"/>
+
+</menu>

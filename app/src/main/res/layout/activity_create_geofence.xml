@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="80dp"
+        sothree:umanoScrollableView="@id/scrollView"
+        sothree:umanoShadowHeight="0dip"
+        tools:context="com.geoideas.gpstracker.activity.CreateGeofenceActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_create_geofence"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            tools:context="com.geoideas.gpstracker.activity.CreateGeofenceActivity">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                android:text="Long press anywhere on map to add geofence"
+                android:textColor="#E91E63"
+                sothree:layout_constraintEnd_toEndOf="parent"
+                sothree:layout_constraintStart_toStartOf="parent"
+                sothree:layout_constraintTop_toTopOf="parent" />
+
+        <fragment
+                android:id="@+id/map_fence"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                sothree:layout_constraintBottom_toBottomOf="parent"
+                sothree:layout_constraintEnd_toEndOf="parent"
+                sothree:layout_constraintStart_toStartOf="parent"
+                sothree:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center|top"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:id="@+id/image_arrow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    sothree:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
+
+            <TextView
+                    style="@style/Widget.AppCompat.TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Radius" />
+
+            <SeekBar
+                    android:id="@+id/seek_radius"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="5000"
+                    android:progress="100" />
+
+            <com.alespero.expandablecardview.ExpandableCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:animationDuration="300"
+                    app:expandOnClick="true"
+                    app:inner_view="@layout/content_create_geofence_main"
+                    app:startExpanded="false"
+                    app:title="Title and Message"/>
+
+            <CheckBox
+                    android:id="@+id/box_fence_dwell"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Loitering In Fence Event"
+                    android:visibility="gone" />
+
+
+            <com.alespero.expandablecardview.ExpandableCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:title="Trigger"
+                    app:inner_view="@layout/content_create_geofence_trigger"
+                    app:expandOnClick="true"
+                    app:animationDuration="300"
+                    app:startExpanded="false"/>
+
+            <com.alespero.expandablecardview.ExpandableCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:title="Notification"
+                    app:inner_view="@layout/content_create_geofence_notifcation"
+                    app:expandOnClick="true"
+                    app:animationDuration="300"
+                    app:startExpanded="false"/>
+
+
+            <Button
+                    android:id="@+id/btn_geofence_users"
+                    style="@style/PrimaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:onClick="showUsersList"
+                    android:text="Users To Be Notify" />
+
+            <Button
+                    android:id="@+id/btn_geofence_create"
+                    style="@style/PrimaryButton.PrimaryButtonFat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:onClick="create"
+                    android:text="Create" />
+        </LinearLayout>
+    </ScrollView>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

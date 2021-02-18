@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/layout_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="toSettings"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+        <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:srcCompat="@drawable/ic_settings_black_24dp" />
+
+        <TextView
+                style="@style/DrawerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_settings" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/layout_purchase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="toPurchase"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+        <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:srcCompat="@drawable/ic_attach_money_black_24dp" />
+
+        <TextView
+                style="@style/DrawerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Purchase" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/layout_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="toAbout"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+        <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:srcCompat="@drawable/ic_info_accent_24dp" />
+
+        <TextView
+                android:id="@+id/textView16"
+                style="@style/DrawerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="About" />
+    </LinearLayout>
+</LinearLayout>

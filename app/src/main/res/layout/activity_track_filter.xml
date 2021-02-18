@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        tools:context="com.geoideas.gpstracker.activity.TrackFilterActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id="@+id/textView"
+                        style="@style/Label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="START" />
+
+                <EditText
+                        android:id="@+id/input_from_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/ic_date_range_accent_24dp"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:inputType="date"
+                        android:onClick="fromDate" />
+
+                <EditText
+                        android:id="@+id/input_from_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_access_time_accent_24dp"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:inputType="time"
+                        android:onClick="fromTime" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id="@+id/textView2"
+                        style="@style/Label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="END" />
+
+                <EditText
+                        android:id="@+id/input_to_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_date_range_accent_24dp"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:inputType="date"
+                        android:onClick="toDate" />
+
+                <EditText
+                        android:id="@+id/input_to_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_access_time_accent_24dp"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:inputType="time"
+                        android:onClick="toTime" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    style="@style/Label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="GPS accuracy(meters)" />
+
+            <EditText
+                    android:id="@+id/input_accuracy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number" />
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                <Switch
+                        android:id="@+id/box_gradient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Generate speed track"
+                        android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/layout_speed_track"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                <TextView
+                        android:id="@+id/text_speed"
+                        style="@style/Label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Speed Limit (kmph)"
+                        android:visibility="visible" />
+
+                <EditText
+                        android:id="@+id/input_max_speed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:visibility="visible" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <TextView
+                            android:id="@+id/textView4"
+                            style="@style/Label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Performance Booster"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:onClick="showSmoothingInfo"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_info_accent_24dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <SeekBar
+                        android:id="@+id/seekBar_filter_level"
+                        style="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:max="2"
+                        android:padding="24dip"
+                        android:progress="1" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:gravity="bottom|center"
+                android:orientation="vertical">
+
+            <Button
+                    android:id="@+id/btn_create"
+                    style="@style/PrimaryButton.PrimaryButtonFat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="create"
+                    android:text="Create" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

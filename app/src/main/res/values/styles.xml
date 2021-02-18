@@ -1,0 +1,124 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Material Drawer -->
+    <style name="MyMaterialDrawer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="materialDrawerStyle">@style/MaterialDrawerStyleCustom</item>
+        <item name="materialDrawerHeaderStyle">@style/MaterialDrawerHeaderStyleCustom</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+    </style>
+
+    <style name="MaterialDrawerStyleCustom" parent="Widget.MaterialDrawerStyle">
+        <item name="materialDrawerInsetForeground">#4000</item>
+        <!-- MaterialDrawer specific values -->
+        <item name="materialDrawerBackground">?colorSurface</item>
+        <item name="materialDrawerPrimaryText">?android:textColorPrimary</item>
+        <item name="materialDrawerPrimaryIcon">@color/colorAccent</item>
+        <item name="materialDrawerSecondaryText">?android:textColorSecondary</item>
+        <item name="materialDrawerSecondaryIcon">?android:textColorSecondary</item>
+        <item name="materialDrawerDividerColor">?android:textColorHint</item>
+        <item name="materialDrawerSelectedBackgroundColor">?colorPrimary</item>
+
+    </style>
+
+    <style name="MaterialDrawerHeaderStyleCustom" parent="Widget.MaterialDrawerHeaderStyle">
+        <item name="materialDrawerHeaderSelectionText">#CCFFFFFF</item>
+        <item name="materialDrawerHeaderSelectionSubtext">#CCFFFFFF</item>
+    </style>
+
+    <!-- AlertDialog Theme -->
+    <style name="AlertDialogTheme" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/colorAccent</item>
+    </style>
+
+    <!-- Button styles -->
+    <style name="PrimaryButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/primaryButtonText</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:minHeight">48dip</item>
+    </style>
+
+    <style name="PrimaryButton.PrimaryButtonFat">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="PrimaryButton.SecondaryButton">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">#FA4545</item>
+    </style>
+
+    <style name="TileButton" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">#FFFFFF</item>
+        <item name="android:textColor">#AAAAAA</item>
+    </style>
+
+    <style name="DialogPositive" parent="Widget.AppCompat.Button">
+        <item name="android:minHeight">40dp</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
+    </style>
+
+    <style name="DialogPositive.DialogNegative">
+        <item name="android:background">@color/colorAccent</item>
+    </style>
+
+    <!-- Label styles -->
+    <style name="Label" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DialogLabel" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="DrawerLabel" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <!-- Checkbox styles -->
+    <style name="PrimaryCheckbox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Tab title styles -->
+    <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+</resources>

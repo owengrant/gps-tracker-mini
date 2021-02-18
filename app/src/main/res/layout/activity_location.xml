@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/layout_location"
+              android:orientation="vertical"
+              android:gravity="center|top">
+
+    <include layout="@layout/point_manager"
+             android:visibility="gone"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>
+
+    <include layout="@layout/point_creator"
+             android:visibility="gone"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>
+
+    <ProgressBar
+            android:id="@+id/loader"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/text_instruction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                android:text="Long press on map to add"
+                android:textColor="#E91E63"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:context="com.geoideas.gpstracker.activity.LocationActivity" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

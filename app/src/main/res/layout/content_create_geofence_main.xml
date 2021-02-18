@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+                android:id="@+id/textView6"
+                style="@style/Widget.AppCompat.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title" />
+
+        <EditText
+                android:id="@+id/input_fence_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+        <TextView
+                style="@style/Widget.AppCompat.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Message" />
+
+        <EditText
+                android:id="@+id/input_fence_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+
+</LinearLayout>

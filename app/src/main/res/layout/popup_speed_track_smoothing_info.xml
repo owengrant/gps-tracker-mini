@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_speed_filter_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+    <TextView
+            android:id="@+id/textView14"
+            style="@style/DialogLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Map Performance Booster" />
+
+    <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="?android:attr/listDivider" />
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Apply advanced smoothing algorithm to speed tracks."
+                    android:textSize="16sp" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Increasing the level will improve map performance."
+                    android:textSize="16sp" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="This will affect chart results."
+                    android:textColor="#FA8282"
+                    android:textSize="16sp" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="If no points are shown on the map, set level to zero."
+                    android:textColor="#FA8282"
+                    android:textSize="16sp" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Set to zero to negate effect."
+                    android:textColor="#FA8282"
+                    android:textSize="16sp" />
+
+            <Button
+                    android:id="@+id/button2"
+                    style="@style/DialogPositive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="dismissSpeedInfo"
+                    android:text="Okay" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

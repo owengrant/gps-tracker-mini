@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">Free GPS Tracker Plus</string>
+    <string name="title_activity_user">Users</string>
+    <string name="title_activity_create_user">Create User</string>
+    <string name="title_activity_manage_user">Manage User</string>
+    <string name="action_delete">Delete</string>
+    <string name="title_activity_location">Location</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_current_location">Current Location</string>
+    <string name="action_share">Share</string>
+    <string name="action_add_point">Draw Point</string>
+    <string name="action_add_line">Draw Line</string>
+    <string name="action_share_current_location">Share Location</string>
+    <string name="action_add_polygon">Polygon</string>
+    <string name="action_screenshot">Screenshot</string>
+    <string name="title_activity_track">Tracks</string>
+    <string name="title_track_create">Create Track</string>
+    <string name="title_activity_geofence">GeoFences</string>
+    <string name="title_activity_main">WhereMe</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_device">Device</string>
+    <string name="title_activity_response_map">ResponseMapActivity</string>
+    <string name="device_title">Device</string>
+    <string-array name="coms_type_array">
+        <item>Internet</item>
+        <item>SMS</item>
+    </string-array>
+    <string-array name="query_commands_sms">
+        <item>Current Location</item>
+    </string-array>
+    <string-array name="query_commands_internet">
+        <item>Current Location</item>
+        <item>Tracks</item>
+    </string-array>
+    <string name="title_activity_live_location">Live</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="server_header">Server</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="url_title">URL</string>
+    <string name="email_title">Email Address</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_notification_map">Notication Map</string>
+    <string name="title_activity_device_manager">DeviceManagerActivity</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_clear">Clear</string>
+    <string name="title_activity_geofence_map">Fences</string>
+    <string name="fence_view_map">View Map</string>
+    <string name="fence_view_list">View List</string>
+    <string name="title_activity_geofence_fused">Fences</string>
+    <string name="title_export">Export</string>
+    <string name="title_activity_geofence_tab">GeofenceTabActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="screenshot">Screenshot</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+</resources>
