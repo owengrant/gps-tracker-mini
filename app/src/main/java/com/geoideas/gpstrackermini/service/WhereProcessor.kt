@@ -44,7 +44,6 @@ class WhereProcessor : Service() {
     private lateinit var locator: Locator
     private lateinit var prefs: SharedPreferences
     private lateinit var prefsUtil: PreferenceUtil
-    private lateinit var smsReceiver: SMSReceiver
     private val activityUtils = ActivityUtils()
 
     companion object {
@@ -117,38 +116,16 @@ class WhereProcessor : Service() {
 
     private fun createNotificationText() : String {
         val trackingOn = prefs.getBoolean("location_service", false)
-        val smsOn = prefs.getBoolean("sms_service", false)
         val trackOnMessage = prefs.getString("tracking_on_message", "")
         val trackOffMessage = prefs.getString("tracking_off_message", "")
-        val smsOnMessage = prefs.getString("sms_on_message", "")
-        val smsOffMessage = prefs.getString("sms_off_message", "")
         val trackMessage = if(trackingOn) trackOnMessage else trackOffMessage
-        val smsMessage = if(smsOn) smsOnMessage else smsOffMessage
         val fenceOn = prefs.getBoolean("geofence_alert", false)
         val fenceOnMessage = prefs.getString("geofence_on_message", "")
         val fenceOffMessage = prefs.getString("geofence_off_message", "")
         val fenceMessage = if(fenceOn) fenceOnMessage else fenceOffMessage
-        return "$trackMessage\n$smsMessage\n$fenceMessage"
+        return "$trackMessage\n$fenceMessage"
     }
 
-    private fun startSMSReceiver() {
-        smsReceiver = SMSReceiver(commandExecutor::handle)
-        val filter = IntentFilter().apply{ addAction("android.provider.Telephony.SMS_RECEIVED") }
-        registerReceiver(smsReceiver, filter)
-        ACCEPTING_SMS = true
-    }
-
-    private fun stopSMSReceiver() {
-        if(!::smsReceiver.isInitialized) return
-        try {
-            if(!prefs.getBoolean("sms_service", false)) {
-                unregisterReceiver(smsReceiver)
-                ACCEPTING_SMS = true
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, e.localizedMessage)
-        }
-    }
 
     private fun startTracker() {
         if(!activityUtils.isLocationOn(this)) {
@@ -189,19 +166,6 @@ class WhereProcessor : Service() {
                 else {
                     stopTracking()
                     if(!prefsUtil.hasSMSService() && !prefsUtil.hasGeofenceAlert()) {
-                        try {
-                            stopSelf()
-                        } catch (e: Exception) {
-                            Log.e(TAG, e.localizedMessage)
-                        }
-                    }
-                }
-            }
-            "sms_service" -> {
-                if(prefsUtil.hasSMSService()) startSMSReceiver()
-                else {
-                    stopSMSReceiver()
-                    if(!prefsUtil.hasLocationService() && !prefsUtil.hasGeofenceAlert()) {
                         try {
                             stopSelf()
                         } catch (e: Exception) {
