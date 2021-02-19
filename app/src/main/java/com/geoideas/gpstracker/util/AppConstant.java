@@ -5,7 +5,7 @@ public class AppConstant {
     public static final boolean ISPRO = true;
     public static final String APP_WEBSITE = "http://www.gpstrackerapp.com";
     public static final String APP_WEBSITE_TUTORIAL = "http://www.gpstrackerapp.com/#/guides";
-    public static final String APP_NAME = "Free GPS Tracker Plus";
+    public static final String APP_NAME = "Free GPS Tracker";
     public static final String TITLE_MARKER = "title_marker";
     public static final int GEOFENCE_CODE = 1000;
     public static final int TRACK_CODE = 1001;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Free GPS Tracker Plus</string>
+    <string name="app_name">Free GPS Tracker</string>
     <string name="title_activity_user">Users</string>
     <string name="title_activity_create_user">Create User</string>
     <string name="title_activity_manage_user">Manage User</string>
