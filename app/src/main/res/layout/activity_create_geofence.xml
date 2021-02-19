@@ -122,7 +122,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:onClick="showUsersList"
-                    android:text="Users To Be Notify" />
+                    android:text="Users To Be Notify"
+                    android:visibility="gone" />
 
             <Button
                     android:id="@+id/btn_geofence_create"
