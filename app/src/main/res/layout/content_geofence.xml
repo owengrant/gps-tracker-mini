@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_geofence"
-        tools:context="com.geoideas.gpstracker.activity.GeofenceActivity"
+        tools:context="com.geoideas.gpstrackermini.activity.GeofenceActivity"
         android:id="@+id/geofences_list">
 
 </androidx.recyclerview.widget.RecyclerView>

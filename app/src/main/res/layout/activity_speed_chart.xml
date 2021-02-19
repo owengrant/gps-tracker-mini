@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.geoideas.gpstracker.activity.SpeedChartActivity"
+        tools:context="com.geoideas.gpstrackermini.activity.SpeedChartActivity"
         android:orientation="vertical"
         android:padding="5dp"
         android:id="@+id/layout_speed_chart">

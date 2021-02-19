@@ -5,4 +5,4 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.geoideas.gpstracker.activity.ui.main.PlaceholderFragment"/>
+        tools:context="com.geoideas.gpstrackermini.activity.ui.main.PlaceholderFragment"/>

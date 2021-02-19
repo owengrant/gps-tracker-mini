@@ -6,7 +6,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        tools:context="com.geoideas.gpstracker.activity.TrackActivity">
+        tools:context="com.geoideas.gpstrackermini.activity.TrackActivity">
 
     <TextView
             android:id="@+id/textView5"

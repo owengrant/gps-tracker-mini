@@ -11,7 +11,7 @@
         sothree:umanoPanelHeight="80dp"
         sothree:umanoScrollableView="@id/scrollView"
         sothree:umanoShadowHeight="0dip"
-        tools:context="com.geoideas.gpstracker.activity.CreateGeofenceActivity">
+        tools:context="com.geoideas.gpstrackermini.activity.CreateGeofenceActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_create_geofence"
@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:gravity="center|top"
             android:orientation="vertical"
-            tools:context="com.geoideas.gpstracker.activity.CreateGeofenceActivity">
+            tools:context="com.geoideas.gpstrackermini.activity.CreateGeofenceActivity">
 
         <TextView
                 android:layout_width="wrap_content"

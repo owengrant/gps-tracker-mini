@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        package="com.geoideas.gpstracker">
+        package="com.geoideas.gpstrackermini">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -38,7 +38,7 @@
                 android:value="ca-app-pub-3940256099942544~3347511713"/>
 
         <receiver
-                android:name=".receiver.AppAutoStart"
+                android:name="com.geoideas.gpstrackermini.receiver.AppAutoStart"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>
@@ -58,81 +58,81 @@
                 android:value="@string/google_maps_key" />
 
         <activity
-                android:name=".activity.SettingsActivity"
+                android:name="com.geoideas.gpstrackermini.activity.SettingsActivity"
                 android:label="@string/title_activity_settings"
-                android:parentActivityName=".activity.TrackActivity">
+                android:parentActivityName="com.geoideas.gpstrackermini.activity.TrackActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.geoideas.gpstracker.activity.TrackActivity" />
+                    android:value="com.geoideas.gpstrackermini.activity.TrackActivity" />
         </activity>
         <activity
-                android:name=".activity.GeofenceTabActivity"
+                android:name="com.geoideas.gpstrackermini.activity.GeofenceTabActivity"
                 android:label="@string/title_activity_geofence_tab"
-                android:parentActivityName=".activity.TrackActivity"
+                android:parentActivityName="com.geoideas.gpstrackermini.activity.TrackActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.geoideas.gpstracker.activity.TrackActivity" />
+                    android:value="com.geoideas.gpstrackermini.activity.TrackActivity" />
         </activity>
         <activity
-                android:name=".activity.CreateGeofenceActivity"
+                android:name="com.geoideas.gpstrackermini.activity.CreateGeofenceActivity"
                 android:label="@string/title_activity_geofence">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.geoideas.gpstracker.activity.GeofenceTabActivity" />
+                    android:value="com.geoideas.gpstrackermini.activity.GeofenceTabActivity" />
         </activity>
         <activity
-                android:name=".activity.TrackFilterActivity"
+                android:name="com.geoideas.gpstrackermini.activity.TrackFilterActivity"
                 android:label="@string/title_track_create"
-                android:parentActivityName=".activity.TrackActivity">
+                android:parentActivityName="com.geoideas.gpstrackermini.activity.TrackActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.geoideas.gpstracker.activity.TrackActivity" />
+                    android:value="com.geoideas.gpstrackermini.activity.TrackActivity" />
         </activity>
         <activity
-                android:name=".activity.SpeedChartActivity"
+                android:name="com.geoideas.gpstrackermini.activity.SpeedChartActivity"
                 android:label="Speed Chart"
-                android:parentActivityName=".activity.TrackActivity">
+                android:parentActivityName="com.geoideas.gpstrackermini.activity.TrackActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.geoideas.gpstracker.activity.TrackActivity" />
+                    android:value="com.geoideas.gpstrackermini.activity.TrackActivity" />
         </activity>
 
         <activity
-                android:name=".activity.LocationActivity"
+                android:name="com.geoideas.gpstrackermini.activity.LocationActivity"
                 android:label="@string/title_activity_location">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.geoideas.gpstracker.activity.TrackActivity" />
+                    android:value="com.geoideas.gpstrackermini.activity.TrackActivity" />
         </activity>
         <activity
-                android:name=".activity.ManageUserActivity"
+                android:name="com.geoideas.gpstrackermini.activity.ManageUserActivity"
                 android:label="@string/title_activity_manage_user"
-                android:parentActivityName=".activity.UserActivity"
+                android:parentActivityName="com.geoideas.gpstrackermini.activity.UserActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.geoideas.gpstracker.activity.UserActivity" />
+                    android:value="com.geoideas.gpstrackermini.activity.UserActivity" />
         </activity>
         <activity
-                android:name=".activity.CreateUserActivity"
+                android:name="com.geoideas.gpstrackermini.activity.CreateUserActivity"
                 android:label="@string/title_activity_create_user"
-                android:parentActivityName=".activity.UserActivity">
+                android:parentActivityName="com.geoideas.gpstrackermini.activity.UserActivity">
             <meta-data
                     android:name="android.support.PARENT_ACITIVTY"
                     android:value="com.geoideas.where.data.activity.UserActivity" />
         </activity>
         <activity
-                android:name=".activity.UserActivity"
+                android:name="com.geoideas.gpstrackermini.activity.UserActivity"
                 android:label="@string/title_activity_user"
-                android:parentActivityName=".activity.TrackActivity"
+                android:parentActivityName="com.geoideas.gpstrackermini.activity.TrackActivity"
                 >
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.geoideas.gpstracker.activity.TrackActivity" />
+                    android:value="com.geoideas.gpstrackermini.activity.TrackActivity" />
         </activity>
         <activity
-                android:name=".activity.TrackActivity"
+                android:name="com.geoideas.gpstrackermini.activity.TrackActivity"
                 android:theme="@style/MyMaterialDrawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -143,7 +143,7 @@
 
         <provider
                 android:name="androidx.core.content.FileProvider"
-                android:authorities="com.geoideas.gpstracker.fileprovider"
+                android:authorities="com.geoideas.gpstrackermini.fileprovider"
                 android:exported="false"
                 android:grantUriPermissions="true">
             <meta-data
@@ -152,7 +152,7 @@
         </provider>
 
         <service
-                android:name=".service.WhereProcessor"
+                android:name="com.geoideas.gpstrackermini.service.WhereProcessor"
                 android:enabled="true"
                 android:exported="false" />
     </application>
