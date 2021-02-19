@@ -247,16 +247,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-        val users = PrimaryDrawerItem().apply {
-            identifier = 3
-            name = StringHolder("Users")
-            withIcon(GoogleMaterial.Icon.gmd_account_circle)
-            onDrawerItemClickListener = { _, _, _ ->
-                toUsers(rootLayout)
-                false
-            }
-        }
-
         val location = PrimaryDrawerItem().apply {
             identifier = 4
             name = StringHolder("Location")
@@ -277,21 +267,11 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-        val purchase = PrimaryDrawerItem().apply {
+        val plus = PrimaryDrawerItem().apply {
             identifier = 6
-            name = StringHolder("Purchase")
-            withIcon(GoogleMaterial.Icon.gmd_attach_money)
+            name = StringHolder("GPS Tracker Plus")
+            withIcon(GoogleMaterial.Icon.gmd_file_download)
         }
-
-/*        val about = PrimaryDrawerItem().apply {
-            identifier = 7
-            name = StringHolder("About")
-            withIcon(GoogleMaterial.Icon.gmd_info)
-            onDrawerItemClickListener = { _, _, _ ->
-                toAbout(rootLayout)
-                false
-            }
-        }*/
 
         val tutorials = PrimaryDrawerItem().apply {
             identifier = 7
@@ -306,12 +286,10 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         slider.itemAdapter.add(
             tracks,
             location,
-            users,
-            settings
+            settings,
+            tutorials,
+            plus
         )
-        if(!AppConstant.ISPRO) slider.itemAdapter.add(purchase)
-        // slider.itemAdapter.add(about)
-        slider.itemAdapter.add(tutorials)
 
         AccountHeaderView(this).apply {
             attachToSliderView(slider)
