@@ -88,16 +88,13 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var APP_NAME: String
 
     val LOCATION_PERMISSIONS = 1
-    val SMS_SEND_PERMISSIONS = 2
     val FILE_PERMISSIONS = 3
     var hasLocation = false
-    var hasSMS = false
     var hasFile = false
 
     val LOCATION_MODE_MESSAGE = "Try updating your location mode to Battery Saving or High Accuracy for increased accuracy."
 
     private lateinit var serviceDialog: androidx.appcompat.app.AlertDialog
-    private lateinit var smsPermissionDialog: androidx.appcompat.app.AlertDialog
     private lateinit var locationPreferenceDialog: androidx.appcompat.app.AlertDialog
     private lateinit var locationPermissionDialog: androidx.appcompat.app.AlertDialog
     private lateinit var onlyGPSModeDialog: androidx.appcompat.app.AlertDialog
@@ -621,8 +618,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
                            putBoolean("geofence_alert", true)
                            apply()
                        } else {
-                           smsPermissionDialog.dismiss()
-                           smsPermissionDialog.show()
                            showServiceBar()
                        }
                    } else {
@@ -679,17 +674,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             create()
         }
 
-        smsPermissionDialog = androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme).run {
-            setTitle("Grant SMS Permission")
-            setMessage(
-                APP_NAME +" needs the ability to send text messages.\n" +
-                        "You are seeing this notice because of current Setting."
-            )
-            setNegativeButton("Close") { d, _ -> d.dismiss() }
-            setPositiveButton("Grant") { _, _ -> resolveSMSPermission() }
-            create()
-        }
-
         locationPreferenceDialog = androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme).run {
             setTitle("Device Location Off")
             setMessage(
@@ -740,13 +724,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             }
     }
 
-    private fun resolveSMSPrefernces() {
-        val smsPreferences = prefsUtil.hasGeofenceAlert() || prefsUtil.hasSMSService()
-        if (smsPreferences && !PermissionsUtil.hasSMSPermission(this)) {
-            smsPermissionDialog.dismiss()
-            smsPermissionDialog.show()
-        }
-    }
 
     private fun resolveLocationPrefernces() {
         val locationPreferences = prefsUtil.hasGeofenceAlert() ||
@@ -763,7 +740,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             locationPermissionDialog.dismiss()
             locationPermissionDialog.show()
         }
-        if(!hasSMS) resolveSMSPrefernces()
         resolveLocationPrefernces()
         if(utils.onlyGPSMode(this)) {
             onlyGPSModeDialog.dismiss()
@@ -779,18 +755,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
                 this,
                 perms,
                 LOCATION_PERMISSIONS
-            )
-        }
-    }
-
-    private fun resolveSMSPermission() {
-        val perms = arrayOf(Manifest.permission.SEND_SMS)
-        hasSMS = ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED
-        if (!hasSMS) {
-            ActivityCompat.requestPermissions(
-                this,
-                perms,
-                SMS_SEND_PERMISSIONS
             )
         }
     }
@@ -814,7 +778,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
                     when (intent?.extras?.getCharSequence(GET_PERMISSION)) {
                         LOCATION_PERMISSION -> resolveLocationPermission()
                         FILE_PERMISSION -> resolveFilePermission()
-                        SMS_PERMISSION -> resolveSMSPermission()
                     }
                 }
             }
@@ -822,7 +785,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun startService() {
-        if (hasLocation && hasSMS) startWhereService()
+        if (hasLocation) startWhereService()
     }
 
     private fun startWhereService() {
@@ -833,7 +796,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         hasLocation = requestCode == LOCATION_PERMISSIONS && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
-        hasSMS = requestCode == SMS_SEND_PERMISSIONS && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
         hasFile = requestCode == FILE_PERMISSIONS && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
 
     }
