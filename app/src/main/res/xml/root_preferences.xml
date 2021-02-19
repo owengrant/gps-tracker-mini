@@ -27,30 +27,10 @@
         <SwitchPreference
                 android:defaultValue="false"
                 android:key="geofence_alert"
-                android:summary="Send SMS to selected contacts when geofence events occur."
+                android:summary="Sound alerts on geofence events."
                 android:title="Geofence Alerts" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Location Request">
-        <SwitchPreference
-                android:defaultValue="false"
-                android:key="sms_service"
-                android:summary="Allow Users to request your current location via text message."
-                android:title="Accept" />
-        <EditTextPreference
-                android:defaultValue="Where are you?"
-                android:key="sms_location_request_message"
-                android:selectAllOnFocus="true"
-                android:singleLine="true"
-                android:summary="When a text message with the same content of the message is receive, reply with a text message containing your location. The sender must be a registered User."
-                android:title="Message" />
-        <EditTextPreference
-                android:key="sms_location_request_trusted_message"
-                android:selectAllOnFocus="true"
-                android:singleLine="true"
-                android:summary="Reply with a text message containing your locatio when a text message containing this message is received.  The sender does not need to be a registered User."
-                android:title="Trusted Message" />
-    </PreferenceCategory>
     <PreferenceCategory android:title="Notification Message">
 
         <EditTextPreference
@@ -67,20 +47,6 @@
                 android:singleLine="true"
                 android:summary="Message to show when tracking is not active."
                 android:title="Tracking inactive message" />
-        <EditTextPreference
-                android:defaultValue="SMS Location Request is on"
-                android:key="sms_on_message"
-                android:selectAllOnFocus="true"
-                android:singleLine="true"
-                android:summary="Message to show when location request via text message is active."
-                android:title="SMS active message" />
-        <EditTextPreference
-                android:defaultValue="SMS Location Request is off"
-                android:key="sms_off_message"
-                android:selectAllOnFocus="true"
-                android:singleLine="true"
-                android:summary="Message to show when location request via text message is not active."
-                android:title="SMS inactive message" />
         <EditTextPreference
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
