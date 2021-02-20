@@ -289,7 +289,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             addProfiles(
                 ProfileDrawerItem().apply {
                     name = StringHolder(resources.getString(R.string.app_name))
-                    withEmail("http://gpstrackerapp.com")
+                    withEmail("teamgeoideas@gmail.com")
                     withIcon(getResources().getDrawable(R.mipmap.ic_launcher))
                     setBackgroundColor(getColor(R.color.colorPrimary))
                 }
@@ -613,13 +613,8 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
                 if(utils.isLocationOn(this@TrackActivity)) {
                    if(!utils.onlyGPSMode(this@TrackActivity)) {
                        putBoolean("location_service", true)
-                       if(PermissionsUtil.hasSMSPermission(this@TrackActivity)) {
-                           putBoolean("sms_service", true)
-                           putBoolean("geofence_alert", true)
-                           apply()
-                       } else {
-                           showServiceBar()
-                       }
+                       putBoolean("geofence_alert", true)
+                       apply()
                    } else {
                        onlyGPSModeDialog.dismiss()
                        onlyGPSModeDialog.show()
@@ -643,7 +638,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun showOnFirstLaunch() {
-        if(!prefs.contains("first")) {
+ /*       if(!prefs.contains("first")) {
             firstRunDialog = androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme).run {
                 setTitle("Tutorials")
                 setMessage("Checkout our tutorials by visiting https://gpstrackerapp.com or click below")
@@ -657,8 +652,9 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             firstRunDialog.show()
             val editor = prefs.edit()
             editor.putBoolean("first", false)
+                prefsUtil.hasSMSService() ||
             editor.apply()
-        }
+        }*/
     }
 
     private fun createDialogs() {
@@ -666,7 +662,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             setTitle("Services Offline!")
             setMessage("""
                 Location Tracking is offline.
-                SMS Location Request is offline.
                 Geofence alerts are offline.
             """.trimIndent())
             setNegativeButton("Close") { _, _ -> closeServiceDialog(rootLayout) }
@@ -703,20 +698,18 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun showServiceBar() {
         val ls = prefs.getBoolean("location_service", false)
-        val ss = prefs.getBoolean("sms_service", false)
         val ga = prefs.getBoolean("geofence_alert", false)
-        if(!ls && !ss && !ga)
+        if(!ls && !ga)
             Snackbar.make(rootLayout, "Services are offline", Snackbar.LENGTH_INDEFINITE).apply {
                 setAction("Turn On") { serviceDialog.show() }
                 show()
             }
         if(ls) startWhereService("location_service")
-        if(ss) startWhereService("sms_service")
         if(ga) startWhereService()
     }
 
     private fun startWhereService(preference: String) {
-        if(!(WhereProcessor.ACCEPTING_SMS || WhereProcessor.TRACKING))
+        if(!(WhereProcessor.TRACKING))
             Intent(this, WhereProcessor::class.java).also {
                 it.putExtra(AppConstant.PREFERENCE_CHANGED, true)
                 it.putExtra("preference", preference)
@@ -727,7 +720,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun resolveLocationPrefernces() {
         val locationPreferences = prefsUtil.hasGeofenceAlert() ||
-                prefsUtil.hasSMSService() ||
                 prefsUtil.hasLocationService()
         if (locationPreferences && !utils.isLocationOn(this)) {
             locationPreferenceDialog.dismiss()

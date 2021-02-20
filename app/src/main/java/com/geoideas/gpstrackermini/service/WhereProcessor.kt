@@ -165,7 +165,7 @@ class WhereProcessor : Service() {
                 }
                 else {
                     stopTracking()
-                    if(!prefsUtil.hasSMSService() && !prefsUtil.hasGeofenceAlert()) {
+                    if(!prefsUtil.hasGeofenceAlert()) {
                         try {
                             stopSelf()
                         } catch (e: Exception) {
@@ -177,8 +177,7 @@ class WhereProcessor : Service() {
             "geofence_alert" -> {
                 if(
                     !prefsUtil.hasGeofenceAlert() &&
-                    !prefsUtil.hasLocationService() &&
-                    !prefsUtil.hasSMSService()
+                    !prefsUtil.hasLocationService()
                 )
                     try {
                         stopSelf()
