@@ -280,7 +280,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             tracks,
             location,
             settings,
-            tutorials,
+            // tutorials,
             plus
         )
 
