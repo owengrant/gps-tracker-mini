@@ -1,7 +1,7 @@
 package com.geoideas.gpstrackermini.util;
 
 public class AppConstant {
-    public static final String AD_UNIT_IT = "ca-app-pub-3940256099942544~3347511713";
+    public static final String AD_UNIT_IT = "ca-app-pub-2465156851574957/8770340021";
     public static final boolean ISPRO = true;
     public static final String APP_WEBSITE = "http://www.gpstrackerapp.com";
     public static final String APP_WEBSITE_TUTORIAL = "http://www.gpstrackerapp.com/#/guides";

@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.geoideas.gpstrackermini.R
+import com.geoideas.gpstrackermini.activity.util.ActivityUtils
+import com.google.android.gms.ads.InterstitialAd
 import java.util.*
 
 class TrackFilterActivity : AppCompatActivity() {
@@ -29,6 +31,9 @@ class TrackFilterActivity : AppCompatActivity() {
     private lateinit var speedArea: View
 
     private lateinit var dialog: AlertDialog
+
+    private val utils = ActivityUtils()
+    private lateinit var interstitialAd: InterstitialAd
 
     init {
         val cal = Calendar.getInstance()
@@ -65,6 +70,9 @@ class TrackFilterActivity : AppCompatActivity() {
             }
         }
         dialog = ceateSmoothDialog()
+
+        interstitialAd = utils.initAds(this);
+        utils.loadAd(interstitialAd)
     }
 
     private fun ceateSmoothDialog() : AlertDialog {
@@ -141,6 +149,7 @@ class TrackFilterActivity : AppCompatActivity() {
             putExtra("gradient", gradientBox.isChecked)
             putExtra("filter", filterLevel.progress)
         }
+        if(Random().nextInt(10)%2 == 0) utils.showAd(interstitialAd)
         setResult(RESULT_OK, result)
         finish()
     }

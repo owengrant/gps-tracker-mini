@@ -148,9 +148,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         showOnFirstLaunch()
         createDialogs()
         resolveRequestPermission()
-
-        interstitialAd = utils.initAds(this);
-        utils.loadAd(interstitialAd)
     }
 
     override fun onResume() {
