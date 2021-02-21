@@ -187,10 +187,10 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        map = LocationManager(mMap, this)
+        trackM = TrackManager(mMap, this)
         if(PermissionsUtil.hasLocationPermission(this)) {
             mMap.isMyLocationEnabled = true
-            map = LocationManager(mMap, this)
-            trackM = TrackManager(mMap, this)
             mMap.setOnPolylineClickListener(::polylineClick)
             trackFilter?.run {
                 if (this.containsKey("from")) generateTrack(Intent().putExtras(this))
