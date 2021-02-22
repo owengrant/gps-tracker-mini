@@ -278,7 +278,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             location,
             settings,
             // tutorials,
-            plus
+            // plus
         )
 
         AccountHeaderView(this).apply {
