@@ -276,7 +276,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         slider.itemAdapter.add(
             tracks,
             location,
-            settings,
+            settings
             // tutorials,
             // plus
         )
