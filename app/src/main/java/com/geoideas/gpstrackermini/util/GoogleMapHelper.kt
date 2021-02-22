@@ -12,7 +12,7 @@ object GoogleMapHelper {
     fun locationURL(lat: Double, long: Double) = "http://gpstrackerapp.com/#/gmap/$long/$lat/10"
 
     fun locationURLText(lat: Double, long: Double) = """
-                    GeoSMS - You can find me at 
+                    ${AppConstant.APP_NAME}-I am here- 
                     ${locationURL(lat, long)}
                 """.trimIndent()
 
