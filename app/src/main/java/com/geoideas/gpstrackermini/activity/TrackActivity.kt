@@ -34,7 +34,6 @@ import com.geoideas.gpstrackermini.service.WhereProcessor
 import com.geoideas.gpstrackermini.util.AppConstant
 import com.geoideas.gpstrackermini.util.PreferenceUtil
 import com.geoideas.gpstrackermini.util.SerialList
-import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
@@ -105,8 +104,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var prefsUtil: PreferenceUtil
 
     private lateinit var commander: CommandExecutor
-
-    private lateinit var interstitialAd: InterstitialAd
 
     companion object {
         val EXPORT_MESSAGE = "This feature is not accessible with this version of Free GPS Tracker."
@@ -470,9 +467,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         if(points.isEmpty()) return
         statsFab.show()
         if(isGradient) {
-            trackM.createGradientTrack(points, visiblePoints, "Track", max, levelBar.progress, this, loader) {
-                utils.showAd(interstitialAd)
-            }
+            trackM.createGradientTrack(points, visiblePoints, "Track", max, levelBar.progress, this, loader) {}
             showGradientButtons()
         }
         else {
@@ -585,7 +580,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             putExtra(Intent.EXTRA_STREAM, path)
         }
         exportDialog.dismiss()
-        utils.showAd(interstitialAd)
         startActivity(viewIntent)
     }
 
