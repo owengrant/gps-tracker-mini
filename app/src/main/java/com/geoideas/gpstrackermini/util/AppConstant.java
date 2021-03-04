@@ -14,5 +14,7 @@ public class AppConstant {
     public static final String[] GREEN_RED_COLOURS = GREEN_RED_GRADIENT.split(",");
     public static final String PREFERENCE_CHANGED = "preference_changed";
     public static final String GEOFENCE_EVENT = "geofence_event";
+    public static final String STOP_SERVICE = "stop_service_event";
+
 
 }
