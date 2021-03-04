@@ -71,6 +71,8 @@ class WhereProcessor : Service() {
             if (extras.containsKey(AppConstant.PREFERENCE_CHANGED))
                 handlePreferenceChange(extras)
             else if (extras.containsKey(AppConstant.GEOFENCE_EVENT)) fence(intent)
+            else if(extras.containsKey(AppConstant.STOP_SERVICE)) stopSelf()
+
         }
         return START_STICKY
     }
@@ -106,11 +108,17 @@ class WhereProcessor : Service() {
         val pIntent = PendingIntent.getActivity(
             this, SERVICE_NOTICE_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT
         )
+        val stopService = Intent(this, WhereProcessor::class.java)
+            .putExtra(AppConstant.STOP_SERVICE, true)
+        val stopIntent = PendingIntent.getService(
+            this, SERVICE_NOTICE_ID, stopService, PendingIntent.FLAG_UPDATE_CURRENT
+        )
         return NotificationCompat.Builder(this, NOTICE_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_logo_notice)
             .setStyle(NotificationCompat.BigTextStyle().bigText(createNotificationText()))
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setContentIntent(pIntent)
+            .addAction(R.drawable.ic_logo, "Terminate", stopIntent)
             .build()
     }
 
