@@ -150,7 +150,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
         prefsUtil = PreferenceUtil(this)
-        resolvePermissions()
+        // resolvePermissions()
         showServiceBar()
     }
 
@@ -183,24 +183,20 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         map = LocationManager(mMap, this)
         trackM = TrackManager(mMap, this)
-        if(PermissionsUtil.hasLocationPermission(this)) {
-            mMap.isMyLocationEnabled = true
-            mMap.setOnPolylineClickListener(::polylineClick)
-            trackFilter?.run {
-                if (this.containsKey("from")) generateTrack(Intent().putExtras(this))
-                val position = CameraPosition(
-                    LatLng(getDouble("latitude"), getDouble("longitude")),
-                    getFloat("zoom"),
-                    0f,
-                    0f
-                )
-                mMap.moveCamera(CameraUpdateFactory.newCameraPosition(position))
-            }
-            loadIntent()
-        } else {
-            locationPermissionDialog.dismiss()
-            locationPermissionDialog.show()
+        mMap.setOnPolylineClickListener(::polylineClick)
+        trackFilter?.run {
+            if (this.containsKey("from")) generateTrack(Intent().putExtras(this))
+            val position = CameraPosition(
+                LatLng(getDouble("latitude"), getDouble("longitude")),
+                getFloat("zoom"),
+                0f,
+                0f
+            )
+            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(position))
         }
+        loadIntent()
+        if(PermissionsUtil.hasLocationPermission(this))
+            mMap.isMyLocationEnabled = true
     }
 
 /*
@@ -592,6 +588,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     fun closeServiceDialog(view: View) {
         serviceDialog.dismiss()
         showServiceBar()
+        resolvePermissions()
     }
 
     fun activateServices(view: View) {
@@ -602,7 +599,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         PreferenceManager.getDefaultSharedPreferences(this).edit().run {
             if(PermissionsUtil.hasLocationPermission(this@TrackActivity)) {
                 if(utils.isLocationOn(this@TrackActivity)) {
-                   if(!utils.onlyGPSMode(this@TrackActivity)) {
+                   if(utils.isHighAccuracyMode(this@TrackActivity)) {
                        putBoolean("location_service", true)
                        putBoolean("geofence_alert", true)
                        apply()
@@ -648,17 +645,25 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         }*/
     }
 
-    private fun createDialogs() {
+    private fun createServiceDialog() {
+        val view = layoutInflater.inflate(R.layout.popup_service_state, null)
+        val grantBox = view.findViewById<CheckBox>(R.id.grant_box)
+        val onBox = view.findViewById<CheckBox>(R.id.on_box)
+        val modeBox = view.findViewById<CheckBox>(R.id.mode_box)
+        grantBox.isChecked = PermissionsUtil.hasLocationPermission(this)
+        onBox.isChecked = utils.isLocationOn(this)
+        modeBox.isChecked = utils.isHighAccuracyMode(this)
         serviceDialog = androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme).run {
-            setTitle("Services Offline!")
-            setMessage("""
-                Location Tracking is offline.
-                Geofence alerts are offline.
-            """.trimIndent())
-            setNegativeButton("Close") { _, _ -> closeServiceDialog(rootLayout) }
-            setPositiveButton("Activate") { _, _ -> activateServices() }
+            setTitle("Services Offline - Complete the following")
+            setView(view)
+            setNegativeButton("Continue") { _, _ -> closeServiceDialog(rootLayout) }
+            setCancelable(false)
             create()
         }
+    }
+
+    private fun createDialogs() {
+        createServiceDialog()
 
         locationPreferenceDialog = androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme).run {
             setTitle("Device Location Off")
@@ -670,6 +675,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             setPositiveButton("Turn On") { _, _ ->
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
+            setCancelable(false)
             create()
         }
 
@@ -681,6 +687,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             )
             setNegativeButton("Close") { d, _ -> d.dismiss() }
             setPositiveButton("Turn On") { _, _ -> resolveLocationPermission()}
+            setCancelable(false)
             create()
         }
 
@@ -692,22 +699,22 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         val ga = prefs.getBoolean("geofence_alert", false)
         if(!ls && !ga)
             Snackbar.make(rootLayout, "Services are offline", Snackbar.LENGTH_INDEFINITE).apply {
-                setAction("Turn On") { serviceDialog.show() }
+                setAction("Turn On") {
+                    val prefs = PreferenceManager.getDefaultSharedPreferences(this@TrackActivity).edit()
+                    if(hasAllLocationPermissions()) {
+                        prefs.putBoolean("location_service", true)
+                        prefs.putBoolean("geofence_alert", true)
+                        prefs.apply()
+                    } else {
+                        createServiceDialog()
+                        serviceDialog.show()
+                    }
+                }
                 show()
             }
         if(ls) startWhereService("location_service")
         if(ga) startWhereService()
     }
-
-    private fun startWhereService(preference: String) {
-        if(!(WhereProcessor.TRACKING))
-            Intent(this, WhereProcessor::class.java).also {
-                it.putExtra(AppConstant.PREFERENCE_CHANGED, true)
-                it.putExtra("preference", preference)
-                ContextCompat.startForegroundService(this, it)
-            }
-    }
-
 
     private fun resolveLocationPrefernces() {
         val locationPreferences = prefsUtil.hasGeofenceAlert() ||
@@ -723,11 +730,15 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             locationPermissionDialog.dismiss()
             locationPermissionDialog.show()
         }
-        resolveLocationPrefernces()
-        if(utils.onlyGPSMode(this)) {
+        if(!utils.isLocationOn(this)) {
+            locationPreferenceDialog.dismiss()
+            locationPreferenceDialog.show()
+        }
+        else if(!utils.isHighAccuracyMode(this)) {
             onlyGPSModeDialog.dismiss()
             onlyGPSModeDialog.show()
         }
+        resolveLocationPrefernces()
     }
 
     private fun resolveLocationPermission() {
@@ -767,14 +778,31 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    private fun hasAllLocationPermissions() =
+        PermissionsUtil.hasLocationPermission(this) &&
+        utils.isLocationOn(this) &&
+        utils.isHighAccuracyMode(this)
+
+
     private fun startService() {
         if (hasLocation) startWhereService()
     }
 
+    private fun startWhereService(preference: String) {
+        if(hasAllLocationPermissions())
+            if(!(WhereProcessor.TRACKING))
+                Intent(this, WhereProcessor::class.java).also {
+                    it.putExtra(AppConstant.PREFERENCE_CHANGED, true)
+                    it.putExtra("preference", preference)
+                    ContextCompat.startForegroundService(this, it)
+                }
+    }
+
     private fun startWhereService() {
-        Intent(this, WhereProcessor::class.java).also {
-            ContextCompat.startForegroundService(this, it)
-        }
+        if(hasAllLocationPermissions())
+            Intent(this, WhereProcessor::class.java).also {
+                ContextCompat.startForegroundService(this, it)
+            }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

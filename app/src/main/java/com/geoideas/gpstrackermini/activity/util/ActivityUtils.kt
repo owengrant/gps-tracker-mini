@@ -92,6 +92,14 @@ class ActivityUtils {
         )
     }
 
+    fun isHighAccuracyMode(ctx: Context) : Boolean {
+        val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+        return (locationManager != null &&
+                (locationManager!!.isProviderEnabled(GPS_PROVIDER) &&
+                        locationManager!!.isProviderEnabled(NETWORK_PROVIDER))
+                )
+    }
+
     fun showLocationModeChangeDialog(ctx: Context, message: String = "Please change your GPS mode to Battery Saving or High Accuracy.") {
         AlertDialog.Builder(ctx, R.style.AlertDialogTheme).apply {
             setTitle("Change GPS Mode")
@@ -112,13 +120,14 @@ class ActivityUtils {
             setPositiveButton("Change") { _, _ ->
                 ctx.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
             }
+            setCancelable(false)
             create()
         }
 
     fun isLocationOn(ctx: Context) : Boolean {
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
         return (locationManager != null &&
-                (locationManager!!.isProviderEnabled(GPS_PROVIDER) &&
+                (locationManager!!.isProviderEnabled(GPS_PROVIDER) ||
                         locationManager!!.isProviderEnabled(NETWORK_PROVIDER))
                 )
     }
