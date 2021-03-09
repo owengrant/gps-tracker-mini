@@ -569,7 +569,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             val path = FileProvider.getUriForFile(
                 this@TrackActivity,
-                "com.geoideas.gpstracker.fileprovider",
+                "com.geoideas.gpstrackermini.fileprovider",
                 file
             )
             type = "text/*"
