@@ -5,6 +5,7 @@ import android.app.*
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
@@ -18,7 +19,7 @@ import com.geoideas.gpstrackermini.activity.util.ActivityUtils
 import com.geoideas.gpstrackermini.coms.CommandExecutor
 import com.geoideas.gpstrackermini.location.Locator
 import com.geoideas.gpstrackermini.notification.NotificationPublisher
-import com.geoideas.gpstrackermini.receiver.SMSReceiver
+import com.geoideas.gpstrackermini.receiver.LocationStateReceiver
 import com.geoideas.gpstrackermini.repository.Repository
 import com.geoideas.gpstrackermini.repository.room.entity.Fence
 import com.geoideas.gpstrackermini.repository.room.entity.FenceEvent
@@ -35,8 +36,8 @@ class WhereProcessor : Service() {
     private  val TAG = "WhereProcessor"
 
     val SERVICE_NOTICE_ID = 1000
-    val NOTICE_CHANNEL_ID = "com.geoideas.gpstracker.service"
-    val MESSAGE_CHANNEL_ID = "com.geoideas.gpstracker.coms.websocket"
+    val NOTICE_CHANNEL_ID = "com.geoideas.gpstrackermini.service"
+    val MESSAGE_CHANNEL_ID = "com.geoideas.gpstrackermini.coms.websocket"
     private lateinit var notificationManager: NotificationManager
     private val timer = Executors.newScheduledThreadPool(1)
     private lateinit var repo: Repository
@@ -45,6 +46,8 @@ class WhereProcessor : Service() {
     private lateinit var prefs: SharedPreferences
     private lateinit var prefsUtil: PreferenceUtil
     private val activityUtils = ActivityUtils()
+
+    private val locationReceiver = LocationStateReceiver()
 
     companion object {
         var TRACKING = false
@@ -63,6 +66,8 @@ class WhereProcessor : Service() {
         createNotificationChannels()
         NotificationPublisher.create(this.applicationContext, notificationManager,NOTICE_CHANNEL_ID)
         initServiceNotice()
+
+        registerReceiver(locationReceiver, IntentFilter(LocationManager.MODE_CHANGED_ACTION))
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -75,6 +80,10 @@ class WhereProcessor : Service() {
 
         }
         return START_STICKY
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(locationReceiver)
     }
 
     @SuppressLint("NewApi")
