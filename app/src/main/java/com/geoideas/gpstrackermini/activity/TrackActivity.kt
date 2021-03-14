@@ -695,16 +695,22 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun showServiceBar() {
+        val prefsEdit = PreferenceManager.getDefaultSharedPreferences(this@TrackActivity).edit()
+        val hasAllLocationPermissions = hasAllLocationPermissions()
+        if(!hasAllLocationPermissions)
+            prefsEdit.putBoolean("location_service", false)
+                .putBoolean("geofence_alert", false)
+                .commit()
         val ls = prefs.getBoolean("location_service", false)
         val ga = prefs.getBoolean("geofence_alert", false)
         if(!ls && !ga)
             Snackbar.make(rootLayout, "Services are offline", Snackbar.LENGTH_INDEFINITE).apply {
                 setAction("Turn On") {
-                    val prefs = PreferenceManager.getDefaultSharedPreferences(this@TrackActivity).edit()
-                    if(hasAllLocationPermissions()) {
-                        prefs.putBoolean("location_service", true)
-                        prefs.putBoolean("geofence_alert", true)
-                        prefs.apply()
+
+                    if(hasAllLocationPermissions) {
+                        prefsEdit.putBoolean("location_service", true)
+                        prefsEdit.putBoolean("geofence_alert", true)
+                        prefsEdit.apply()
                     } else {
                         createServiceDialog()
                         serviceDialog.show()
