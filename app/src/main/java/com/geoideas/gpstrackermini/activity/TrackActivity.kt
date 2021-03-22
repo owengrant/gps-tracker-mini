@@ -65,6 +65,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     private var max = 0
     private var from = ""
     private var to = ""
+    private lateinit var mapFragment: SupportMapFragment
     private lateinit var mMap: GoogleMap
     private lateinit var trackM: TrackManager
     private lateinit var map: LocationManager
@@ -115,7 +116,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         APP_NAME = resources.getString(R.string.app_name)
         setContentView(R.layout.activity_track)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
+        mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         repo = Repository(this)
@@ -195,8 +196,14 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(position))
         }
         loadIntent()
-        if(PermissionsUtil.hasLocationPermission(this))
+        if(PermissionsUtil.hasLocationPermission(this)) {
+            val locationButton = (mapFragment.view?.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById<View>(Integer.parseInt("2"))
+            val rlp =  locationButton.getLayoutParams() as RelativeLayout.LayoutParams
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
+            rlp.setMargins(30, 175, 0, 0)
             mMap.isMyLocationEnabled = true
+        }
     }
 
 /*
