@@ -15,6 +15,8 @@ public class AppConstant {
     public static final String PREFERENCE_CHANGED = "preference_changed";
     public static final String GEOFENCE_EVENT = "geofence_event";
     public static final String STOP_SERVICE = "stop_service_event";
-
+    public static final int LIVE_TRACK_SPEED_MIN = 10;
+    public static final int LIVE_TRACK_MAX_SIZE = 100;
+    public static final int LIVE_TRACK_MIN_SIZE = 20;
 
 }
