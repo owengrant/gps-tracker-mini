@@ -200,11 +200,6 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         loadIntent()
         if(PermissionsUtil.hasLocationPermission(this)) {
-            val locationButton = (mapFragment.view?.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById<View>(Integer.parseInt("2"))
-            val rlp =  locationButton.getLayoutParams() as RelativeLayout.LayoutParams
-            rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
-            rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
-            rlp.setMargins(30, 175, 0, 0)
             mMap.isMyLocationEnabled = true
             if(!this::liveTrackMap.isInitialized)
                 liveTrackMap = LiveTrackMap(mMap, this)
@@ -552,7 +547,10 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun export(): Boolean {
         if (PermissionsUtil.hasFilePermission(this)) {
-            if (!::points.isInitialized || points.isEmpty()) return true
+            if (!::points.isInitialized || points.isEmpty()) {
+                Toast.makeText(this, "No track line present", Toast.LENGTH_LONG).show()
+                return true
+            }
             utils.startStatusBar(loader)
             if (isGradient)
                 trackM.exportGradientTrack(::onExportComplete)
