@@ -18,5 +18,6 @@ public class AppConstant {
     public static final int LIVE_TRACK_SPEED_MIN = 10;
     public static final int LIVE_TRACK_MAX_SIZE = 100;
     public static final int LIVE_TRACK_MIN_SIZE = 20;
+    public static final int LIVE_TRACK_ACCURACY_MIN = 10;
 
 }

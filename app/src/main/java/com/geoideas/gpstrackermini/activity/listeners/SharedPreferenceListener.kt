@@ -29,6 +29,14 @@ class SharedPreferenceListener(
                 p0.edit().putString(p1, max.toString()).apply()
             }
         }
+        else if(p1 == "live_accuracy" && p0 != null) {
+            val default = 15
+            val accuracy = p0.getString(p1, "$default")?.toInt() ?: 100
+            if(accuracy < AppConstant.LIVE_TRACK_ACCURACY_MIN) {
+                Toast.makeText(cxt, "GPS accuracy must not be less than ${AppConstant.LIVE_TRACK_ACCURACY_MIN}", Toast.LENGTH_LONG).show()
+                p0.edit().putString(p1, "$default").apply()
+            }
+        }
         else if(p1 != "first")
             Intent(cxt, WhereProcessor::class.java).also {
                 it.putExtra(AppConstant.PREFERENCE_CHANGED, true)

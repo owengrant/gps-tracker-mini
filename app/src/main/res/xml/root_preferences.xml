@@ -73,15 +73,22 @@
                 android:key="live_track_max"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:summary="Speed limit to use for live tracking map"
+                android:summary="Speed limit to use for live tracking map."
                 android:title="Speed Limit" />
         <EditTextPreference
                 android:defaultValue="100"
                 android:key="live_track_size"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:summary="Number of point to be added to the map"
+                android:summary="Number of point to show on the map."
                 android:title="Track Size" />
+        <EditTextPreference
+                android:defaultValue="15"
+                android:key="live_accuracy"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:title="GPS Accuracy"
+                app:summary="GPS coordinates accuracy in metres." />
     </PreferenceCategory>
     <PreferenceCategory android:title="Data">
         <Preference
