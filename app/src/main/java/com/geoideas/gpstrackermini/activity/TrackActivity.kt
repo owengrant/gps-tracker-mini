@@ -233,10 +233,8 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == TRACK_CREATION && resultCode == Activity.RESULT_OK) {
-            endLiveMap()
+        if(requestCode == TRACK_CREATION && resultCode == Activity.RESULT_OK)
             generateTrack(data)
-        }
     }
 
     fun createDrawer() {
@@ -461,6 +459,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun generateTrack(data: Intent?) {
+        liveSwitch.isChecked = false
         trackM.clearTracks()
         val query = data?.extras ?: return
         trackFilter = query
