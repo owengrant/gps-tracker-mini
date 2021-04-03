@@ -12,9 +12,11 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -80,6 +82,10 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var slider: MaterialDrawerSliderView
     private lateinit var loader: ProgressBar
     private lateinit var levelBar: ProgressBar
+    private lateinit var liveSwitch: SwitchCompat
+    private lateinit var liveInfo: TextView
+    private val defaultLiveInfo = "Spd(kmph) - : Avg - : Max";
+
     private lateinit var points: List<Point>
 
     private val utils = ActivityUtils()
@@ -131,7 +137,13 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         statsFab.visibility = View.INVISIBLE
         loader = findViewById(R.id.loader)
         shareButton = findViewById(R.id.btn_share)
-        trackSmoothDialog = createTrackSmoothDialog()
+        liveInfo = findViewById(R.id.text_speed_info)
+        liveInfo.text = defaultLiveInfo
+        liveSwitch = findViewById(R.id.switch_live_active)
+        liveSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked) runLiveMap() else endLiveMap()
+        }
+
         createDrawer()
         restore(savedInstanceState)
 
@@ -201,9 +213,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         loadIntent()
         if(PermissionsUtil.hasLocationPermission(this)) {
             mMap.isMyLocationEnabled = true
-            if(!this::liveTrackMap.isInitialized)
-                liveTrackMap = LiveTrackMap(mMap, this)
-            liveTrackMap.restart()
+            runLiveMap()
         }
     }
 
@@ -223,8 +233,10 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == TRACK_CREATION && resultCode == Activity.RESULT_OK)
+        if(requestCode == TRACK_CREATION && resultCode == Activity.RESULT_OK) {
+            endLiveMap()
             generateTrack(data)
+        }
     }
 
     fun createDrawer() {
@@ -590,7 +602,26 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
         startActivity(viewIntent)
     }
 
+    private fun updateLiveInfo(currentSpeed: Int, avgSpeed: Int, maxSpeed: Int) {
+        var message = "Spd(kmph) - $currentSpeed: Avg - $avgSpeed: Max - $maxSpeed"
+        liveInfo.text = message
+        // Log.d(TAG, message)
+    }
 
+    private fun runLiveMap() {
+        if(!this::liveTrackMap.isInitialized && liveSwitch.isChecked) {
+            liveTrackMap = LiveTrackMap(mMap, this)
+            liveTrackMap.onUpdate = ::updateLiveInfo
+        }
+        liveTrackMap.restart()
+    }
+
+    private fun endLiveMap() {
+        if(this::liveTrackMap.isInitialized && !liveSwitch.isChecked) {
+            liveTrackMap.terminate()
+            liveInfo.text = defaultLiveInfo
+        }
+    }
 
     fun showDrawer(view: View) {
         slider.drawerLayout?.openDrawer(slider)
@@ -675,6 +706,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun createDialogs() {
         createServiceDialog()
+        trackSmoothDialog = createTrackSmoothDialog()
 
         locationPreferenceDialog = androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme).run {
             setTitle("Device Location Off")
