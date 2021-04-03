@@ -58,28 +58,51 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <LinearLayout
+            <ProgressBar
+                    android:id="@+id/loader"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="4dp"
+                    android:indeterminate="false"
+                    android:visibility="visible" />
 
-                <ProgressBar
-                        android:id="@+id/loader"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp"
-                        android:indeterminate="false"
-                        android:visibility="visible" />
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="31dp"
+                        android:elevation="10dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                    <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switch_live_active"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:showText="false"
+                            android:text="Live"
+                            android:textColor="@color/colorAccent" />
+
+                    <TextView
+                            android:id="@+id/text_speed_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Spd - : Avg - : Max"
+                            android:textColor="@color/colorAccent" />
+                </LinearLayout>
 
                 <fragment
                         android:id="@+id/map"
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        tools:context="com.geoideas.gpstrackermini.activity.TrackActivity" />
+                        android:layout_height="match_parent" />
 
-            </LinearLayout>
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         </LinearLayout>
 
