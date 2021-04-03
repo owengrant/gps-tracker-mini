@@ -24,6 +24,7 @@ import com.geoideas.gpstrackermini.activity.listeners.SharedPreferenceListener
 import com.geoideas.gpstrackermini.activity.util.ActivityUtils
 import com.geoideas.gpstrackermini.coms.CommandExecutor
 import com.geoideas.gpstrackermini.location.Locator
+import com.geoideas.gpstrackermini.map.LiveTrackMap
 import com.geoideas.gpstrackermini.util.PermissionsUtil
 import com.geoideas.gpstrackermini.map.LocationManager
 import com.geoideas.gpstrackermini.map.MapUtils
@@ -105,6 +106,8 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var prefsUtil: PreferenceUtil
 
     private lateinit var commander: CommandExecutor
+
+    private lateinit var liveTrackMap: LiveTrackMap
 
     companion object {
         val EXPORT_MESSAGE = "This feature is not accessible with this version of Free GPS Tracker."
@@ -203,6 +206,9 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
             rlp.setMargins(30, 175, 0, 0)
             mMap.isMyLocationEnabled = true
+            if(!this::liveTrackMap.isInitialized)
+                liveTrackMap = LiveTrackMap(mMap, this)
+            liveTrackMap.restart()
         }
     }
 
@@ -725,8 +731,10 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 show()
             }
-        if(ls) startWhereService("location_service")
-        if(ga) startWhereService()
+        if(ls || ga) {
+            if (ls) startWhereService("location_service")
+            if (ga) startWhereService()
+        }
     }
 
     private fun resolveLocationPrefernces() {
