@@ -58,7 +58,7 @@ open class Track(val points: List<Point>, val title: String = "", val titlePosit
     }
 
 
-    private fun createGradient(max: Int): Track {
+    private fun createGradient(max: Int, clickable: Boolean = false): Track {
         markers.addAll(createMarkers())
         val pIt = points.iterator()
         var p1: Point
@@ -69,7 +69,7 @@ open class Track(val points: List<Point>, val title: String = "", val titlePosit
             if(pIt.hasNext()) {
                 p2 = pIt.next()
                 last = p2
-                val track = createPolylineOptions()
+                val track = createPolylineOptions(clickable = clickable)
                 val l1 = LatLng(p1.latitude, p1.longitude)
                 val l2 = LatLng(p2.latitude, p2.longitude)
                 startTimes.add(p1.moment)
@@ -85,10 +85,11 @@ open class Track(val points: List<Point>, val title: String = "", val titlePosit
                 val colour = trackSegmentColour(speed.toInt(), max)
                 colours.add(colour)
                 track.color(Color.parseColor(colour))
-                tracksInfo.add(MarkerOptions().apply {
-                    title("${speed.toInt()} kmph | ${p1.moment} | ${duration} sec")
-                    position(middle(l1, l2))
-                })
+                if(clickable)
+                    tracksInfo.add(MarkerOptions().apply {
+                        title("${speed.toInt()} kmph | ${p1.moment} | ${duration} sec")
+                        position(middle(l1, l2))
+                    })
                 tracks.add(track)
             }
         }
@@ -142,10 +143,10 @@ open class Track(val points: List<Point>, val title: String = "", val titlePosit
         }
     }
 
-    private fun createPolylineOptions(colour: Int = Color.BLUE) =  PolylineOptions().apply {
+    private fun createPolylineOptions(colour: Int = Color.BLUE, clickable: Boolean = true) =  PolylineOptions().apply {
         color(colour)
         width(5f)
-        clickable(true)
+        clickable(clickable)
     }
 
 
@@ -170,8 +171,8 @@ open class Track(val points: List<Point>, val title: String = "", val titlePosit
 
     fun getTitleMarker() = titleMarker
 
-    fun getGradientTrack(max: Int): GradientTrack {
-        createGradient(max)
+    fun getGradientTrack(max: Int, clickable: Boolean = true): GradientTrack {
+        createGradient(max, clickable)
         return GradientTrack(markers, tracks, tracksInfo)
     }
 
