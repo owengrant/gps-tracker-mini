@@ -1,6 +1,7 @@
 package com.geoideas.gpstrackermini.map
 
 import android.app.Activity
+import android.util.Log
 import androidx.preference.PreferenceManager
 import com.geoideas.gpstrackermini.repository.Repository
 import com.geoideas.gpstrackermini.util.AppConstant
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit
 class LiveTrackMap(val map: GoogleMap, val activity: Activity) {
     private var speed = AppConstant.LIVE_TRACK_SPEED_MIN
     private var size = AppConstant.LIVE_TRACK_MAX_SIZE
+    private var accuracy = AppConstant.LIVE_TRACK_ACCURACY_MIN
 
     private var running = false
     private var executor = Executors.newSingleThreadScheduledExecutor()
@@ -41,12 +43,14 @@ class LiveTrackMap(val map: GoogleMap, val activity: Activity) {
 
     private fun updateTrack() {
         if(!running) return
-        val points = repository.db.pointDao().fetchLastN(size)
+        val points = repository.db.pointDao().fetchLastNAccuracy(size, accuracy.toDouble())
         val track = Track(points)
         val path = track.getGradientTrack(speed, false)
+        // points.forEach { Log.d("LiveTrackMap", it.accuracy.toString()) }
         activity.runOnUiThread {
             speed = pref.getString("live_track_max", "$speed")?.toInt() ?: speed
             size = pref.getString("live_track_size", "$size")?.toInt() ?: size
+            accuracy = pref.getString("live_accuracy", "$accuracy")?.toInt() ?: accuracy
             if(!(speed < speed || size < size) && path.tracks.isNotEmpty()) {
                 val currentSpeed = track.speeds().last().toInt()
                 val avgSpeed = track.speeds().average().toInt()
