@@ -66,6 +66,23 @@
                 android:summary="Message to show geofence alert is not active."
                 android:title="Geofence Alert inactive message" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="Live Track">
+
+        <EditTextPreference
+                android:defaultValue="100"
+                android:key="live_track_max"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:summary="Speed limit to use for live tracking map"
+                android:title="Speed Limit" />
+        <EditTextPreference
+                android:defaultValue="100"
+                android:key="live_track_size"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:summary="Number of point to be added to the map"
+                android:title="Track Size" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="Data">
         <Preference
                 android:key="data_delete_all"
