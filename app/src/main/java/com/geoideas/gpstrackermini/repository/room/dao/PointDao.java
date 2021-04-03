@@ -22,10 +22,10 @@ public interface PointDao {
     @Query("SELECT * FROM point WHERE moment BETWEEN datetime(:from) AND datetime(:to) ORDER BY id ASC")
     List<Point> fetchBetween(String from, String to);
 
-    @Query("SELECT * FROM point ORDER BY id DESC LIMIT :amt")
+    @Query("SELECT * FROM point ORDER BY id ASC LIMIT :amt")
     List<Point> fetchLastN(int amt);
 
-    @Query("SELECT * FROM point ORDER BY id DESC LIMIT 1")
+    @Query("SELECT * FROM point ORDER BY id ASC LIMIT 1")
     List<Point> fetchLast();
 
     @Query("SELECT * FROM point WHERE accuracy <= :acc ORDER BY id ASC")
