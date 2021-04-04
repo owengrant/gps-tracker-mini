@@ -46,13 +46,12 @@ class LiveTrackMap(val map: GoogleMap, val activity: Activity) {
         val points = repository.db.pointDao().fetchLastNAccuracy(size, accuracy.toDouble())
         val track = Track(points)
         val path = track.getGradientTrack(speed, false)
-        // points.forEach { Log.d("LiveTrackMap", it.accuracy.toString()) }
         activity.runOnUiThread {
             speed = pref.getString("live_track_max", "$speed")?.toInt() ?: speed
             size = pref.getString("live_track_size", "$size")?.toInt() ?: size
             accuracy = pref.getString("live_accuracy", "$accuracy")?.toInt() ?: accuracy
             if(!(speed < speed || size < size) && path.tracks.isNotEmpty()) {
-                val currentSpeed = track.speeds().last().toInt()
+                val currentSpeed = track.speeds().first().toInt()
                 val avgSpeed = track.speeds().average().toInt()
                 val maxSpeed = track.speeds().max()?.toInt() ?: 0
                 onUpdate(currentSpeed, avgSpeed, maxSpeed)
