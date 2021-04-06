@@ -1,9 +1,11 @@
 package com.geoideas.gpstrackermini.map
 
 import android.graphics.Color
+import android.util.Log
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.geoideas.gpstrackermini.repository.room.entity.Point
+import com.geoideas.gpstrackermini.util.AppConstant.BLACK_COLOUR
 import com.geoideas.gpstrackermini.util.AppConstant.GREEN_RED_COLOURS
 import com.google.android.gms.maps.model.LatLng
 
@@ -131,9 +133,9 @@ open class Track(val points: List<Point>, val title: String = "", val titlePosit
 
     fun trackSegmentColour(value: Int, maximum: Int): String {
         val max = maximum - 1
-        val per = (GREEN_RED_COLOURS.size/max).toFloat()
-        val i = if(value >= max) GREEN_RED_COLOURS.size - 1 else (value*per).toInt()
-        return GREEN_RED_COLOURS[i]
+        if(value >= max) return BLACK_COLOUR
+        val valuePercent = ((value/max.toFloat())*GREEN_RED_COLOURS.size)
+        return GREEN_RED_COLOURS[valuePercent.toInt()]
     }
 
     private fun createMarkers() = points.map {

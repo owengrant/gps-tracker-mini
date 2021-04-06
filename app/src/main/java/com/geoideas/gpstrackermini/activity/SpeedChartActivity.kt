@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.geoideas.gpstrackermini.R
 import com.geoideas.gpstrackermini.activity.util.ActivityUtils
+import com.geoideas.gpstrackermini.util.AppConstant.BLACK_COLOUR
 import com.geoideas.gpstrackermini.util.PermissionsUtil
 import com.geoideas.gpstrackermini.util.AppConstant.GREEN_RED_COLOURS
 import lecho.lib.hellocharts.model.*
@@ -174,7 +175,7 @@ class SpeedChartActivity : AppCompatActivity() {
         if(outliners > 0) {
             val outlinerSlice = createSlice(
                 (outliners.toFloat() / speeds.size) * 100,
-                GREEN_RED_COLOURS[GREEN_RED_COLOURS.size - 1],
+                BLACK_COLOUR,
                 "> $outVal"
             )
             slices.add(outlinerSlice)
