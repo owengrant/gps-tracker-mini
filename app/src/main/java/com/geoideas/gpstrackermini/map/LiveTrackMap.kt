@@ -30,7 +30,7 @@ class LiveTrackMap(val map: GoogleMap, val activity: Activity) {
 
     fun start() {
         running = true
-        executor.scheduleAtFixedRate(::updateTrack, 0, 10, TimeUnit.SECONDS)
+        executor.scheduleAtFixedRate(::updateTrack, 0, 6, TimeUnit.SECONDS)
     }
 
     fun terminate() {
@@ -51,7 +51,7 @@ class LiveTrackMap(val map: GoogleMap, val activity: Activity) {
             size = pref.getString("live_track_size", "$size")?.toInt() ?: size
             accuracy = pref.getString("live_accuracy", "$accuracy")?.toInt() ?: accuracy
             if(!(speed < speed || size < size) && path.tracks.isNotEmpty()) {
-                val currentSpeed = track.speeds().first().toInt()
+                val currentSpeed = track.speeds().last().toInt()
                 val avgSpeed = track.speeds().average().toInt()
                 val maxSpeed = track.speeds().max()?.toInt() ?: 0
                 onUpdate(currentSpeed, avgSpeed, maxSpeed)
