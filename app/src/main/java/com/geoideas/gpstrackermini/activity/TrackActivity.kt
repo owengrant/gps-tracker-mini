@@ -602,7 +602,7 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun updateLiveInfo(currentSpeed: Int, avgSpeed: Int, maxSpeed: Int) {
-        var message = "Spd(kmph) - $currentSpeed: Avg - $avgSpeed: Max - $maxSpeed"
+        var message = "(kmph)Spd - $currentSpeed: Avg - $avgSpeed: Max - $maxSpeed"
         liveInfo.text = message
         // Log.d(TAG, message)
     }
