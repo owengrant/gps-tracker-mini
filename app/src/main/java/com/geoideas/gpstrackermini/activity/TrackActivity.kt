@@ -258,8 +258,18 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-        val settings = PrimaryDrawerItem().apply {
+        val tutorials = PrimaryDrawerItem().apply {
             identifier = 5
+            name = StringHolder("Tutorials")
+            withIcon(GoogleMaterial.Icon.gmd_info)
+            onDrawerItemClickListener = { _, _, _ ->
+                toTutorial(rootLayout)
+                false
+            }
+        }
+
+        val settings = PrimaryDrawerItem().apply {
+            identifier = 7
             name = StringHolder("Settings")
             withIcon(GoogleMaterial.Icon.gmd_settings)
             onDrawerItemClickListener = { _, _, _ ->
@@ -274,21 +284,11 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             withIcon(GoogleMaterial.Icon.gmd_file_download)
         }
 
-        val tutorials = PrimaryDrawerItem().apply {
-            identifier = 7
-            name = StringHolder("Tutorials")
-            withIcon(GoogleMaterial.Icon.gmd_info)
-            onDrawerItemClickListener = { _, _, _ ->
-                toTutorial(rootLayout)
-                false
-            }
-        }
-
         slider.itemAdapter.add(
             tracks,
             location,
+            tutorials,
             settings
-            // tutorials,
             // plus
         )
 
