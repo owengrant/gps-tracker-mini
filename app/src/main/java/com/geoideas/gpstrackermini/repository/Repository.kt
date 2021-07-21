@@ -77,13 +77,12 @@ class Repository(val context: Context) {
 
     private fun notifyUsers(users: List<User>, fence: Fence, event: String, moment: String, fenceEvent: FenceEvent) {
         val appName = context.getString(R.string.app_name)
-        val allowed = if(fence.isSafe) "allowed" else "not allowed"
         val title = "$appName - ${event.capitalize()}ed ${fence.title}"
-        val body = "${fence.description}. This area is $allowed"
+        val body = "${fence.description}"
         if(fence.isNotify)
             locationGeofenceEventNotice(fence, title, body)
         if(!PermissionsUtil.hasSMSPermission(context)) return
-        val message = "$appName - ${event}ed ${fence.title} at $moment. This action is $allowed " +
+        val message = "$appName - ${event}ed ${fence.title} at $moment. " +
                 " ${GoogleMapHelper.fenceURL(fence)}"
         users.filter { fence.isSms }
             .filter { it.phoneNumber.isNotEmpty() }
