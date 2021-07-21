@@ -18,13 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Send me a notification" />
+            android:text="Send me a notification"
+            android:visibility="gone" />
 
     <CheckBox
             android:id="@+id/box_safe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Am I allowed to access the area?" />
+            android:text="Am I allowed to access the area?"
+            android:visibility="gone" />
 
 </LinearLayout>
