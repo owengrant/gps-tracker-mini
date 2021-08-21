@@ -6,6 +6,8 @@ import androidx.preference.PreferenceManager
 import com.geoideas.gpstrackermini.repository.Repository
 import com.geoideas.gpstrackermini.util.AppConstant
 import com.google.android.gms.maps.GoogleMap
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
@@ -43,6 +45,15 @@ class LiveTrackMap(val map: GoogleMap, val activity: Activity) {
 
     private fun updateTrack() {
         if(!running) return
+        val lastPointList = repository.db.pointDao().fetchLast()
+
+        // if the last recorded point is older than 5 minutes, do nothing
+        if(lastPointList.isNotEmpty()) {
+            val lastPoint = lastPointList.first()
+            val moment = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(lastPoint.moment)
+            if(System.currentTimeMillis() - moment.time > (1000*60*5)) return
+        }
+
         val points = repository.db.pointDao().fetchLastNAccuracy(size, accuracy.toDouble())
         val track = Track(points)
         val path = track.getGradientTrack(speed, false)
