@@ -55,6 +55,10 @@ class LiveTrackMap(val map: GoogleMap, val activity: Activity) {
         }
 
         val points = repository.db.pointDao().fetchLastNAccuracy(size, accuracy.toDouble())
+        if(points.isNotEmpty()) {
+            val moment = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(points.last().moment)
+            if(System.currentTimeMillis() - moment.time > (1000*60*10)) return
+        }
         val track = Track(points)
         val path = track.getGradientTrack(speed, false)
         activity.runOnUiThread {
