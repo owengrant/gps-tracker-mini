@@ -4,7 +4,7 @@ public class AppConstant {
     public static final String AD_UNIT_IT = "ca-app-pub-2465156851574957/8770340021";
     public static final boolean ISPRO = true;
     public static final String APP_WEBSITE = "http://www.gpstrackerapp.com";
-    public static final String APP_WEBSITE_TUTORIAL = "https://www.youtube.com/watch?v=I0FNAuTQOQI";
+    public static final String APP_WEBSITE_TUTORIAL = "https://www.youtube.com/watch?v=EwMXKtSmq50&list=PLO9p7qpOXazqT5WnQrJAilSHwKJag8eNp";
     public static final String APP_NAME = "Free GPS Tracker";
     public static final String TITLE_MARKER = "title_marker";
     public static final int GEOFENCE_CODE = 1000;
