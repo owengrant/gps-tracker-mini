@@ -667,12 +667,12 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun showOnFirstLaunch() {
- /*       if(!prefs.contains("first")) {
+        if(!prefs.contains("first")) {
             firstRunDialog = androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme).run {
                 setTitle("Tutorials")
-                setMessage("Checkout our tutorials by visiting https://gpstrackerapp.com or click below")
+                setMessage("Click the Tutorial maximize your experience. Tutorials can me found under the menu in the top-left corner")
                 setNegativeButton("Close") { d, _ ->  d.dismiss()}
-                setPositiveButton("Get Start") { _, _ ->
+                setPositiveButton("Tutorial") { _, _ ->
                     toTutorial(rootLayout)
                     firstRunDialog.dismiss()
                 }
@@ -681,9 +681,8 @@ class TrackActivity : AppCompatActivity(), OnMapReadyCallback {
             firstRunDialog.show()
             val editor = prefs.edit()
             editor.putBoolean("first", false)
-                prefsUtil.hasSMSService() ||
             editor.apply()
-        }*/
+        }
     }
 
     private fun createServiceDialog() {
